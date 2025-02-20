@@ -1,0 +1,9 @@
+C:\catsmackaroo\Modding\IV SDK .NET Base Preset\IVSDK .NET Base Preset\obj\x86\Debug\IVSDK .NET Base Preset.csproj.AssemblyReference.cache
+C:\catsmackaroo\Modding\IV SDK .NET Base Preset\IVSDK .NET Base Preset\obj\x86\Debug\IVSDK .NET Base Preset.csproj.CoreCompileInputs.cache
+C:\catsmackaroo\Modding\IV SDK .NET Base Preset\IVSDK .NET Base Preset\bin\x86\Debug\ClonksCodingLib.GTAIV.dll
+C:\catsmackaroo\Modding\IV SDK .NET Base Preset\IVSDK .NET Base Preset\bin\x86\Debug\IVSDKDotNetWrapper.dll
+C:\catsmackaroo\Modding\IV SDK .NET Base Preset\IVSDK .NET Base Preset\obj\x86\Debug\IVSDK .N.1ED8B146.Up2Date
+C:\catsmackaroo\Modding\IV SDK .NET Base Preset\IVSDK .NET Base Preset\bin\x86\Debug\IVSDK.NET_Base_Preset.ivsdk.dll
+C:\catsmackaroo\Modding\IV SDK .NET Base Preset\IVSDK .NET Base Preset\bin\x86\Debug\IVSDK.NET_Base_Preset.ivsdk.pdb
+C:\catsmackaroo\Modding\IV SDK .NET Base Preset\IVSDK .NET Base Preset\obj\x86\Debug\IVSDK.NET_Base_Preset.ivsdk.dll
+C:\catsmackaroo\Modding\IV SDK .NET Base Preset\IVSDK .NET Base Preset\obj\x86\Debug\IVSDK.NET_Base_Preset.ivsdk.pdb

@@ -1,0 +1,2 @@
+C:\catsmackaroo\Modding\IV SDK .NET Base Preset\IVSDK .NET Base Preset\obj\Debug\IVSDK .NET Base Preset.csproj.AssemblyReference.cache
+C:\catsmackaroo\Modding\IV SDK .NET Base Preset\IVSDK .NET Base Preset\obj\Debug\IVSDK .NET Base Preset.csproj.CoreCompileInputs.cache
