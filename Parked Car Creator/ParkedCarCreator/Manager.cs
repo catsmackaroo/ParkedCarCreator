@@ -1,9 +1,9 @@
 ﻿using IVSDKDotNet;
-using static IVSDKDotNet.Native.Natives;
+using ParkedCarCreator.NETBasePreset;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using ParkedCarCreator.NETBasePreset;
+using static IVSDKDotNet.Native.Natives;
 
 namespace ParkedCarCreator
 {
@@ -18,7 +18,18 @@ namespace ParkedCarCreator
 
         public static void Init(SettingsFile settings)
         {
-            int carCount = settings.GetInteger("Main", "Car Count", 0);
+            int carCount = settings.GetInteger("Main", "Car Count", -1);
+            if (carCount == -1)
+            {
+                carCount = 0;
+                foreach (var section in settings.GetSectionNames())
+                {
+                    if (int.TryParse(section, out int _))
+                    {
+                        carCount++;
+                    }
+                }
+            }
             Main.Log($"Car Count: {carCount}");
             Random random = new Random();
 
@@ -26,7 +37,12 @@ namespace ParkedCarCreator
             {
                 string section = $"{i}";
 
-                string modelValue = settings.GetValue(section, "Model", ""); // Read model as string
+                string modelValue = settings.GetValue(section, "Model", "");
+                if (string.IsNullOrEmpty(modelValue))
+                {
+                    Main.Log($"Model value is empty or missing for car {i}; ensure parameter 'Model' is not missing. Setting car as random model.");
+                    modelValue = "random";
+                }
                 List<string> modelNames = new List<string>();
                 List<uint> modelHashes = new List<uint>();
 
@@ -51,6 +67,7 @@ namespace ParkedCarCreator
                 bool locked = settings.GetValue(section, "Locked", null) == null ? random.Next(2) == 0 : settings.GetBoolean(section, "Locked", false);
                 int rarity = settings.GetInteger(section, "Rarity", 100);
                 uint episode = settings.GetUInteger(section, "Episode", 0);
+                bool sirens = settings.GetBoolean(section, "Sirens", false);
 
                 if ((modelNames.Count > 0 || modelHashes.Count > 0) && coords != Vector3.Zero)
                 {
@@ -65,7 +82,8 @@ namespace ParkedCarCreator
                         Extras = extras,
                         Locked = locked,
                         Rarity = rarity,
-                        Episode = episode
+                        Episode = episode,
+                        Sirens = sirens
                     };
                     carDataList.Add(carData);
                     Main.Log($"Added Car {i}");
@@ -78,7 +96,6 @@ namespace ParkedCarCreator
 
             Main.Log("script initialized...");
         }
-
         public static void Tick()
         {
             if (!IS_PLAYER_PLAYING(Main.PlayerIndex)) return;
@@ -149,6 +166,7 @@ namespace ParkedCarCreator
             public bool Locked { get; set; }
             public int Rarity { get; set; }
             public bool HasSpawned { get; set; }
+            public bool Sirens { get; set; }
             public uint Episode { get; set; }
 
             public override string ToString()

@@ -1,14 +1,12 @@
 ﻿using IVSDKDotNet;
-using static IVSDKDotNet.Native.Natives;
 using ParkedCarCreator.NETBasePreset;
-using static IVSDKDotNet.Helper;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
+using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
-using System;
+using static IVSDKDotNet.Native.Natives;
 
 namespace ParkedCarCreator
 {
@@ -73,8 +71,6 @@ namespace ParkedCarCreator
 
         private void Main_Drawing(object sender, EventArgs e)
         {
-            GUI.Tick();
-
         }
 
         private void Main_GameLoadPriority(object sender, EventArgs e)

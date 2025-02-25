@@ -1,7 +1,7 @@
-﻿using IVSDKDotNet;
-using static IVSDKDotNet.Native.Natives;
+﻿using CCL.GTAIV;
+using IVSDKDotNet;
 using System;
-using CCL.GTAIV;
+using static IVSDKDotNet.Native.Natives;
 
 namespace ParkedCarCreator.NETBasePreset
 {
@@ -59,7 +59,7 @@ namespace ParkedCarCreator.NETBasePreset
 
             GET_CHAR_HEALTH(Main.PlayerPed.GetHandle(), out previousHealth);
 
-            if (previousHealth < currentHealth && currentHealth > 0 && previousHealth > 0) 
+            if (previousHealth < currentHealth && currentHealth > 0 && previousHealth > 0)
                 damagedTaken = true;
 
             GET_CHAR_HEALTH(Main.PlayerPed.GetHandle(), out currentHealth);
@@ -78,7 +78,7 @@ namespace ParkedCarCreator.NETBasePreset
         private static uint currentArmor = 0;
         private static uint previousArmor = 0;
         private static bool armorDamageTaken = false;
-        public static bool HasPlayerBeenDamagedArmor() 
+        public static bool HasPlayerBeenDamagedArmor()
         {
             GET_CHAR_ARMOUR(Main.PlayerPed.GetHandle(), out previousArmor);
 

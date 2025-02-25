@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Windows.Forms;
-using CCL.GTAIV;
+﻿using CCL.GTAIV;
 using IVSDKDotNet;
+using System.Windows.Forms;
 using static IVSDKDotNet.Native.Natives;
-using System.Linq;
 
 namespace ParkedCarCreator
 {
@@ -28,7 +24,7 @@ namespace ParkedCarCreator
         {
             if (menuOpen)
             {
-                ImGuiIV.Begin("The Parked Car Creator by catsmackaroo");
+                ImGuiIV.Begin("Parked Car Creator");
 
                 if (ImGuiIV.Button("Copy Data"))
                 {
@@ -38,9 +34,9 @@ namespace ParkedCarCreator
 
                     GET_CAR_MODEL(vehicle.GetHandle(), out uint modelIndex);
 
-                    string formatted = $"Car={modelIndex}\r\n Coords={(int)playerPos.X},{(int)playerPos.Y},{(int)playerPos.Z + 1}\r\nHeading={(int)heading}";
+                    string formatted = $"Model={modelIndex}\r\nCoords={(int)playerPos.X},{(int)playerPos.Y},{(int)playerPos.Z + 1}\r\nHeading={(int)heading}";
                     Clipboard.SetText(formatted);
-                    IVGame.ShowSubtitleMessage($"~B~ COPIED TEXT: ~n~~w~Car ID: {modelIndex} ~n~Coords={(int)playerPos.X},{(int)playerPos.Y},{(int)playerPos.Z + 1}~n~Heading={(int)heading}");
+                    IVGame.ShowSubtitleMessage($"~B~ COPIED TEXT: ~n~~w~{formatted}");
                 }
 
                 ImGuiIV.End();

@@ -8,5 +8,3 @@ C:\catsmackaroo\Modding\Parked Car Creator\obj\Debug\ParkedCa.E22977DB.Up2Date
 C:\catsmackaroo\Modding\Parked Car Creator\obj\Debug\ParkedCarCreator.ivsdk.dll
 C:\catsmackaroo\Modding\Parked Car Creator\obj\Debug\ParkedCarCreator.ivsdk.pdb
 C:\catsmackaroo\Modding\Parked Car Creator\bin\Debug\ParkedCarCreator.ivsdk.dll.config
-C:\catsmackaroo\Modding\Parked Car Creator\bin\Debug\Newtonsoft.Json.dll
-C:\catsmackaroo\Modding\Parked Car Creator\bin\Debug\Newtonsoft.Json.xml

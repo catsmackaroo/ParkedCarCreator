@@ -1,10 +1,9 @@
-﻿using IVSDKDotNet;
-using static IVSDKDotNet.Native.Natives;
-using System;
-using CCL.GTAIV;
-using System.Numerics;
-using System.Collections.Generic;
+﻿using CCL.GTAIV;
+using IVSDKDotNet;
 using IVSDKDotNet.Enums;
+using System;
+using System.Collections.Generic;
+using static IVSDKDotNet.Native.Natives;
 
 namespace ParkedCarCreator.NETBasePreset
 {
@@ -30,7 +29,7 @@ namespace ParkedCarCreator.NETBasePreset
             return IVWeaponInfo.GetWeaponInfo((uint)GetWeaponType());
         }
 
-        public static WeaponGroup GetWeaponGroup() 
+        public static WeaponGroup GetWeaponGroup()
         {
             return (WeaponGroup)GetWeaponInfo().Group;
         }

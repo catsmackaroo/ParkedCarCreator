@@ -1,9 +1,9 @@
-using IVSDKDotNet;
-using static IVSDKDotNet.Native.Natives;
 using CCL.GTAIV;
+using IVSDKDotNet;
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using static IVSDKDotNet.Native.Natives;
 
 namespace ParkedCarCreator
 {
@@ -18,39 +18,75 @@ namespace ParkedCarCreator
 
         public static void SpawnCarAtLocation(Manager.CarData carData)
         {
+            if (carData == null)
+            {
+                Main.Log("Car data is null. Cannot spawn car.");
+                return;
+            }
+
             if (carData.Episode != 0 && carData.Episode != episode)
             {
                 Main.Log($"Car {carData.Slot} is for episode {carData.Episode}, current episode is {episode}. Skipping spawn.");
                 return;
             }
 
-            Random random = new Random();
-            uint modelHash;
-
-
-            if (carData.ModelHashes.Count > 0 && (carData.ModelNames.Count == 0 || random.Next(2) == 0))
-            {
-                modelHash = carData.ModelHashes[random.Next(carData.ModelHashes.Count)];
-            }
-            else
-            {
-                string selectedModel = carData.ModelNames[random.Next(carData.ModelNames.Count)];
-                modelHash = (uint)GET_HASH_KEY(selectedModel);
-            }
-
+            var modelHash = GetModelHash(carData);
             var name = GET_DISPLAY_NAME_FROM_VEHICLE_MODEL(modelHash);
-            int closestCar = GET_CLOSEST_CAR(carData.Coords, 5f, 0, 70);
-            if (closestCar != 0)
+
+            if (IsCarSpotTaken(carData.Coords))
             {
                 Main.Log($"Car spot is taken. Cannot spawn {name} in slot {carData.Slot}.");
                 return;
             }
 
-            IVVehicle vehicle = NativeWorld.SpawnVehicle(modelHash, carData.Coords, out int carHandle, false);
+            var vehicle = SpawnVehicle(modelHash, carData.Coords, carData.Heading);
+            ConfigureVehicle(vehicle, carData);
+
+            Main.Log($"Spawned car {name} : {carData}");
+        }
+
+        private static uint GetModelHash(Manager.CarData carData)
+        {
+            var random = new Random();
+            if (carData.ModelHashes.Count > 0 && (carData.ModelNames.Count == 0 || random.Next(2) == 0))
+            {
+                return carData.ModelHashes[random.Next(carData.ModelHashes.Count)];
+            }
+            else
+            {
+                var selectedModel = carData.ModelNames[random.Next(carData.ModelNames.Count)];
+
+                if (selectedModel.Equals("random", StringComparison.OrdinalIgnoreCase))
+                {
+                    GET_RANDOM_CAR_MODEL_IN_MEMORY(true, out uint hash, out int errorId);
+                    return hash;
+                }
+                return (uint)GET_HASH_KEY(selectedModel);
+            }
+        }
+
+        private static bool IsCarSpotTaken(Vector3 coords)
+        {
+            var closestCar = GET_CLOSEST_CAR(coords, 5f, 0, 70);
+            return closestCar != 0;
+        }
+
+        private static IVVehicle SpawnVehicle(uint modelHash, Vector3 coords, int heading)
+        {
+            var vehicle = NativeWorld.SpawnVehicle(modelHash, coords, out int carHandle, false);
             SET_CAR_ON_GROUND_PROPERLY(carHandle);
-            SET_CAR_HEADING(carHandle, carData.Heading);
+            SET_CAR_HEADING(carHandle, heading);
             SET_VEHICLE_DIRT_LEVEL(carHandle, Main.GenerateRandomNumber(0, 15));
             vehicle.VehicleFlags.NeedsToBeHotWired = true;
+            return vehicle;
+        }
+
+        private static void ConfigureVehicle(IVVehicle vehicle, Manager.CarData carData)
+        {
+            var carHandle = vehicle.GetHandle();
+
+            if (carHandle == 0)
+                return;
 
             if (carData.Colors != null && carData.Colors.Count >= 2)
             {
@@ -62,7 +98,7 @@ namespace ParkedCarCreator
             }
             else
             {
-                Main.Log("Car spawned with natural colors.");
+                Main.Log($"Car {carData.Slot} spawned with natural colors.");
                 GET_CAR_COLOURS(carHandle, out int primaryColor, out int secondaryColor);
                 GET_EXTRA_CAR_COLOURS(carHandle, out int extraColor1, out int extraColor2);
                 carData.Colors = new List<int> { primaryColor, secondaryColor, extraColor1, extraColor2 };
@@ -75,13 +111,16 @@ namespace ParkedCarCreator
 
             if (carData.Extras != null)
             {
-                foreach (int extra in carData.Extras)
+                foreach (var extra in carData.Extras)
                 {
                     TURN_OFF_VEHICLE_EXTRA(carHandle, extra, false);
                 }
             }
 
-            Main.Log($"Spawned car {name} : {carData}");
+            if (carData.Sirens)
+            {
+                SWITCH_CAR_SIREN(carHandle, true);
+            }
         }
     }
 }
