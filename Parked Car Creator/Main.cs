@@ -20,10 +20,8 @@ namespace ParkedCarCreator
         public static DelayedCalling TheDelayedCaller;
         public static IVPed PlayerPed { get; private set; }
         public static int PlayerIndex { get; private set; }
-        public static int PlayerWantedLevel { get; private set; }
         public static float PlayerHealth { get; private set; }
         public static Vector3 PlayerPos { get; private set; }
-        public static List<UIntPtr> Peds { get; private set; } = new List<UIntPtr>();
 
         public static int GenerateRandomNumber(int x, int y)
         {
@@ -39,13 +37,7 @@ namespace ParkedCarCreator
             rnd = new Random();
             Initialized += Main_Initialized;
             Tick += Main_Tick;
-            Drawing += Main_Drawing;
             KeyDown += Main_KeyDown;
-            ProcessAutomobile += Main_ProcessAutomobile;
-            ProcessCamera += Main_ProcessCamera;
-            IngameStartup += Main_IngameStartup;
-            GameLoadPriority += Main_GameLoadPriority;
-            GameLoad += Main_GameLoad;
             Uninitialize += Main_Uninitialize;
             OnImGuiRendering +=Main_OnImGuiRendering;
             TheDelayedCaller = new DelayedCalling();
@@ -65,22 +57,6 @@ namespace ParkedCarCreator
             }
         }
 
-        private void Main_GameLoad(object sender, EventArgs e)
-        {
-        }
-
-        private void Main_Drawing(object sender, EventArgs e)
-        {
-        }
-
-        private void Main_GameLoadPriority(object sender, EventArgs e)
-        {
-        }
-
-        private void Main_IngameStartup(object sender, EventArgs e)
-        {
-        }
-
         private void Main_Initialized(object sender, EventArgs e)
         {
             OnlyRaiseKeyEventsWhenInGame = true;
@@ -90,16 +66,6 @@ namespace ParkedCarCreator
             Manager.Init(Settings);
             GUI.Init(Settings);
         }
-
-
-        private void Main_ProcessCamera(object sender, EventArgs e)
-        {
-        }
-
-        private void Main_ProcessAutomobile(UIntPtr vehPtr)
-        {
-        }
-
         private void Main_Tick(object sender, EventArgs e)
         {
             PlayerPed = IVPed.FromUIntPtr(IVPlayerInfo.FindThePlayerPed());
@@ -138,16 +104,6 @@ namespace ParkedCarCreator
         {
             string fileName = System.IO.Path.GetFileName(filePath);
             IVGame.Console.Print($"{modTitle} - [{fileName}] {message}");
-        }
-
-        public static void LogError(string message)
-        {
-            IVGame.Console.Print($"{modTitle} - Error: + {message}");
-        }
-
-        internal static int GenerateRandomNumber(int v, uint wheelCount)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -68,7 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
-    <Compile Include="ParkedCarCreator\CarSpawner.cs" />
+    <Compile Include="ParkedCarCreator\CarHandler.cs" />
     <Compile Include="ParkedCarCreator\GUI.cs" />
     <Compile Include="ParkedCarCreator\Parser.cs" />
     <Compile Include="ParkedCarCreator\Manager.cs" />
@@ -76,7 +76,6 @@
     <Compile Include="Utility\CommonHelpers.cs" />
     <Compile Include="Utility\DelayedCalling.cs" />
     <Compile Include="Utility\PedHelper.cs" />
-    <Compile Include="Utility\PlayerChecks.cs" />
     <Compile Include="Utility\WeaponHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
